@@ -45,3 +45,12 @@ def get_book_by_id(request, book_id):
         return Response(status=status.HTTP_404_NOT_FOUND)
 
 # TODO: GET AUTHOR BY ID and return json response..
+@api_view(['GET'])
+def get_author_by_id(request,author_id):
+    try:
+        author = Author.objects.get(pk=author_id)
+        author_serializer = AuthorSerializer(author)
+        return Response(author_serializer.data, status=status.HTTP_200_OK)
+
+    except Author.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
